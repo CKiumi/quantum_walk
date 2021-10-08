@@ -49,7 +49,7 @@ pub fn eigenvector_con1(
 
 pub fn time_averaged(
     n: i32,
-    Δ0: Real,
+    Δo: Real,
     Δ: Real,
     α: Complex,
     β: Complex,
@@ -57,12 +57,12 @@ pub fn time_averaged(
     φ: QuantumState2,
 ) -> Vec<Real> {
     let αo = sqrt(1. - norm2(β)) * exp(I * argαo);
-    let evs = eigenvalues(Δ0, Δ, norm(β));
+    let evs = eigenvalues(Δo, Δ, norm(β));
     let imabp1p2 = (αo * β.conj() * φ[0] * φ[1].conj()).im;
     let length = (2 * n + 1) as usize;
     let (mut r1, mut r2) = (vec![0.; length], vec![0.; length]);
     if evs[0] != zero {
-        let a1 = norm(β) * cos(Δ0 - Δ) - norm(α) * sin(Δ0 - Δ);
+        let a1 = norm(β) * cos(Δo - Δ) - norm(α) * sin(Δo - Δ);
         let (A1, B1) = (1. - norm(β) * a1, norm(β) * (norm(β) - a1));
         let (ζm2_1, ζp2_1) = ((A1 + B1) / norm2(α), norm2(α) / (A1 + B1));
         let μ0_1 = (B1.powi(2) * (norm(α) * norm(β) + 2. * imabp1p2))
@@ -77,7 +77,7 @@ pub fn time_averaged(
             .collect();
     }
     if evs[3] != zero {
-        let a2 = norm(β) * cos(Δ0 - Δ) + norm(α) * sin(Δ0 - Δ);
+        let a2 = norm(β) * cos(Δo - Δ) + norm(α) * sin(Δo - Δ);
         let (A2, B2) = (1. - norm(β) * a2, norm(β) * (norm(β) - a2));
         let (ζm2_2, ζp2_2) = ((A2 + B2) / norm2(α), norm2(α) / (A2 + B2));
         let μ0_2 = (B2 * B2 * (norm(α) * norm(β) - 2. * imabp1p2))

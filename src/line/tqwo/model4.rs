@@ -17,8 +17,8 @@ pub fn time_averaged(
     Δ: Real,
     αp: Complex,
     αm: Complex,
-    βm: Complex,
     βp: Complex,
+    βm: Complex,
     φ: QuantumState2,
 ) -> Vec<Real> {
     let evs = eigenvalues(Δ, βp, βm);
@@ -45,6 +45,5 @@ pub fn time_averaged(
             _ => (4. * X * (-m + root) * ζm2.powi(x)) / norm2(αm),
         })
         .collect();
-    // println!("{:?}", our_result);
     our_result
 }

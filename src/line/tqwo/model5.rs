@@ -1,21 +1,21 @@
 use crate::foundation::{number::*, QuantumState2};
 
-pub fn eigenvalues(Δ: Real, absβ: Real, c: Real) -> Vec<Complex> {
+pub fn eigenvalues(Δ: Real, absβ: Real, γ: Real) -> Vec<Complex> {
     let mut ev = vec![zero, zero, zero, zero];
-    if sin(Δ - c) < absβ {
-        let x = exp(I * Δ) - I * absβ * exp(I * c);
+    if sin(Δ - γ) < absβ {
+        let x = exp(I * Δ) - I * absβ * exp(I * γ);
         ev[0] = x / norm(x);
         ev[1] = -x / norm(x);
     }
-    if sin(Δ - c) > -absβ {
-        let x = exp(I * Δ) + (I * absβ) * exp(I * c);
+    if sin(Δ - γ) > -absβ {
+        let x = exp(I * Δ) + (I * absβ) * exp(I * γ);
         ev[2] = x / norm(x);
         ev[3] = -x / norm(x);
     }
     ev
 }
 
-pub fn result(
+pub fn time_averaged(
     n: i32,
     Δ: Real,
     Δ0: Real,

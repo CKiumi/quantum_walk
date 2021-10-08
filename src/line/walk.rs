@@ -1,8 +1,23 @@
+use crate::foundation::{Coin2, QSOperation};
+
 use super::zero;
 use super::{QuantumState2, Real};
 use nalgebra::Vector2;
 
 use std::vec::Vec;
+
+pub fn homogeneous(n: usize, initial: QuantumState2, coin: Coin2) -> Vec<Vec<Real>> {
+    let mut space = create_line(n);
+    space[0][n] = initial;
+    for i in 1..n + 1 {
+        operate_shift(
+            i,
+            &operate_coin_homogeneous(&coin, &space[i - 1]),
+            &mut space[i],
+        );
+    }
+    space.iter().map(|line| norm_qs(&line)).collect()
+}
 
 pub fn rw(n: usize) -> Vec<Vec<Real>> {
     let mut space = vec![vec![0.; 2 * n + 1]; n + 1];
@@ -31,6 +46,19 @@ pub fn continuous_rw(n: usize) -> Vec<Real> {
         }
     }
     continuous
+}
+
+fn operate_coin_homogeneous(coin: &Coin2, states: &Vec<QuantumState2>) -> Vec<QuantumState2> {
+    states
+        .into_iter()
+        .map(|state| {
+            if state[0] == zero && state[1] == zero {
+                *state
+            } else {
+                state.operate_coin(&coin)
+            }
+        })
+        .collect()
 }
 
 pub fn create_line(n: usize) -> Vec<Vec<QuantumState2>> {

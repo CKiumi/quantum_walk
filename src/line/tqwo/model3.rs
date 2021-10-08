@@ -52,6 +52,5 @@ pub fn time_averaged(
             _ => 0.,
         })
         .collect();
-    println!("{:?}", our_result);
     our_result
 }

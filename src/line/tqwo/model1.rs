@@ -5,7 +5,7 @@ pub fn eigenvalues(Δ: Real, β: Complex, βo: Complex) -> Vec<Complex> {
     if norm2(β) > rbb0 {
         let ev: Complex =
             ((rbb0 - 1.0) + sqrt(norm2(β) - rbb0 * rbb0) * I) / sqrt(1.0 + norm2(β) - 2.0 * rbb0);
-        let evs = vec![ev, ev.conj(), -ev.conj(), -ev];
+        let evs = vec![ev, -ev, ev.conj(), -ev.conj()];
         evs.iter().map(|x| exp(I * Δ) * x).collect()
     } else {
         vec![zero, zero, zero, zero]
