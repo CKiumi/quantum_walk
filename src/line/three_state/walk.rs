@@ -2,7 +2,7 @@ use crate::foundation::number::*;
 use crate::foundation::*;
 use nalgebra::Vector3;
 // use std::time::Instant;
-fn norm_qs3(states: &Vec<QuantumState3>) -> Vec<Real> {
+fn norm_qs3(states: &[QuantumState3]) -> Vec<Real> {
     states
         .iter()
         .map(|x| x[0].norm_sqr() + x[1].norm_sqr() + x[2].norm_sqr())
@@ -31,7 +31,7 @@ fn operate_coin(
     coin_m: &Coin3,
     coin_o: &Coin3,
     coin_p: &Coin3,
-    states: &Vec<QuantumState3>,
+    states: &[QuantumState3],
 ) -> Vec<QuantumState3> {
     let n = (states.len() - 1) / 2;
     states
@@ -55,11 +55,11 @@ pub fn create_line(n: usize) -> Vec<Vec<QuantumState3>> {
     vec![vec![Vector3::new(zero, zero, zero); 2 * n + 1]; n + 1]
 }
 
-pub fn shift(step: usize, states: &Vec<QuantumState3>, original: &mut Vec<QuantumState3>) {
+pub fn shift(step: usize, states: &[QuantumState3], original: &mut Vec<QuantumState3>) {
     let len = states.len() as usize;
     let n = (states.len() - 1) / 2;
     let remainder = n - step;
-    for x in 0 + remainder..len - remainder {
+    for x in remainder..len - remainder {
         if x != len - 1 {
             original[x][0] = states[x + 1][0];
         }

@@ -1,10 +1,7 @@
-use crate::foundation::number::{exp, sqrt, Complex, I};
-use crate::foundation::{coin, Coin2, QSOperation, QuantumState3};
-
 use super::zero;
 use super::{QuantumState2, Real};
+use crate::foundation::{Coin2, QSOperation};
 use nalgebra::Vector2;
-
 use std::vec::Vec;
 
 pub fn homogeneous(n: usize, initial: QuantumState2, coin: Coin2) -> Vec<Vec<Real>> {
@@ -49,9 +46,9 @@ pub fn continuous_rw(n: usize) -> Vec<Real> {
     continuous
 }
 
-fn operate_coin_homogeneous(coin: &Coin2, states: &Vec<QuantumState2>) -> Vec<QuantumState2> {
+fn operate_coin_homogeneous(coin: &Coin2, states: &[QuantumState2]) -> Vec<QuantumState2> {
     states
-        .into_iter()
+        .iter()
         .map(|state| {
             if state[0] == zero && state[1] == zero {
                 *state
@@ -66,11 +63,11 @@ pub fn create_line(n: usize) -> Vec<Vec<QuantumState2>> {
     vec![vec![Vector2::new(zero, zero); 2 * n + 1]; n + 1]
 }
 
-pub fn operate_shift(step: usize, states: &Vec<QuantumState2>, original: &mut Vec<QuantumState2>) {
+pub fn operate_shift(step: usize, states: &[QuantumState2], original: &mut Vec<QuantumState2>) {
     let len = states.len() as usize;
     let n = (states.len() - 1) / 2;
     let remainder = n - step;
-    for x in 0 + remainder..len - remainder {
+    for x in remainder..len - remainder {
         if x != len - 1 {
             original[x][0] = states[x + 1][0];
         }
@@ -80,7 +77,7 @@ pub fn operate_shift(step: usize, states: &Vec<QuantumState2>, original: &mut Ve
     }
 }
 
-pub fn norm_qs(states: &Vec<QuantumState2>) -> Vec<Real> {
+pub fn norm_qs(states: &[QuantumState2]) -> Vec<Real> {
     states
         .iter()
         .map(|x| x[0].norm_sqr() + x[1].norm_sqr())

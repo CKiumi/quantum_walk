@@ -45,7 +45,7 @@ pub fn eigenvector(
 pub fn time_averaged_limit(
     n: i32,
     init_state: QuantumState2,
-    eigenvectors: &Vec<Vec<QuantumState2>>,
+    eigenvectors: &[Vec<QuantumState2>],
 ) -> Vec<Real> {
     let limits: Vec<Vec<Real>> = eigenvectors
         .iter()
@@ -60,9 +60,9 @@ pub fn time_averaged_limit(
         .collect();
     let mut total_sum = vec![0.; (2 * n + 1) as usize];
 
-    for i in 0..eigenvectors.len() {
+    for limit in limits {
         for x in 0..(2 * n + 1) as usize {
-            total_sum[x] += limits[i][x];
+            total_sum[x] += limit[x];
         }
     }
     total_sum

@@ -27,11 +27,10 @@ pub fn time_averaged(
         return vec![0.; (2 * n + 1) as usize];
     }
     let (absαm, absαp) = (sqrt(1. - absβm.powi(2)), sqrt(1. - absβp.powi(2)));
-    let (βp, βm) = (absβp * exp(I * argβ), absβm * exp(I * argβ));
-    let (αm, αp) = (absαm * exp(I * argαm), absαp * exp(I * argαp));
+    let βm = absβm * exp(I * argβ);
+    let (_, αp) = (absαm * exp(I * argαm), absαp * exp(I * argαp));
     let (C, S) = (cos(Δp - Δm), sin(Δp - Δm));
     let A = absβp.powi(2) + absβm.powi(2) - 2. * absβm * absβp * C;
-    let N = (absβm * A) / (absβp * sqrt(A - S));
     let root = sqrt(A - S.powi(2));
     let (p, m) = (absβm - absβp * C, absβp - absβm * C);
     let ζp2 = (A + absβp.powi(2) * A - 2. * absβp.powi(2) * S.powi(2) - 2. * absβp * p * root)

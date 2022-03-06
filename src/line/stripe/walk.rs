@@ -11,17 +11,13 @@ pub fn homogeneous_run(n: usize, initial: QuantumState2, angle: f64) -> Vec<Vec<
     let mut space = create_line(n);
     space[0][n] = initial;
     for i in 1..n + 1 {
-        operate_shift(
-            i,
-            &operate_homo_coin(angle, &mut space[i - 1]),
-            &mut space[i],
-        );
+        operate_shift(i, &operate_homo_coin(angle, &space[i - 1]), &mut space[i]);
         // dbg!(space[i][n].norm2());
     }
     space.iter().map(|line| norm_qs(&line)).collect()
 }
 
-fn operate_homo_coin(angle: f64, states: &Vec<QuantumState2>) -> Vec<QuantumState2> {
+fn operate_homo_coin(angle: f64, states: &[QuantumState2]) -> Vec<QuantumState2> {
     let n = (states.len() - 1) / 2;
     states
         .iter()
@@ -77,7 +73,7 @@ fn operate_coin(
     coin_o: &Coin2,
     coin_p1: &Coin2,
     coin_p2: &Coin2,
-    states: &Vec<QuantumState2>,
+    states: &[QuantumState2],
 ) -> Vec<QuantumState2> {
     let n = (states.len() - 1) / 2;
     states

@@ -11,7 +11,7 @@ pub trait QSOperation {
 
 impl QSOperation for QuantumState2 {
     fn norm2(&self) -> Real {
-        self[0].norm_sqr() + &self[1].norm_sqr()
+        self[0].norm_sqr() + self[1].norm_sqr()
     }
     fn inner(&self, phi: QuantumState2) -> Complex {
         self[0].conj() * phi[0] + self[1].conj() * phi[1]
@@ -24,7 +24,7 @@ impl QSOperation for QuantumState2 {
     }
 }
 
-pub fn print_line(vector: &Vec<QuantumState2>) {
+pub fn print_line(vector: &[QuantumState2]) {
     for i in vector {
         print!("{:.1},{:.1}   ", i[0], i[1]);
     }
@@ -37,12 +37,12 @@ pub fn print_line_space(vector: Vec<Vec<QuantumState2>>) {
     }
 }
 
-pub fn print_line_prob(vector: &Vec<Real>) {
+pub fn print_line_prob(vector: &[Real]) {
     for i in vector {
         print!("{:.1} ", i);
     }
 }
-pub fn print_line_space_prob(vector: &Vec<Vec<Real>>) {
+pub fn print_line_space_prob(vector: &[Vec<Real>]) {
     for x in vector {
         println!();
         print_line_prob(&x);

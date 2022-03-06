@@ -4,12 +4,12 @@ pub type Coin2 = Matrix2<Complex>;
 pub type Coin3 = Matrix3<Complex>;
 
 pub struct CoinParams {
-    delta: Real,
-    absa: Real,
-    arga: Real,
-    alpha: Complex,
-    argb: Real,
-    beta: Complex,
+    pub delta: Real,
+    pub absa: Real,
+    pub arga: Real,
+    pub alpha: Complex,
+    pub argb: Real,
+    pub beta: Complex,
 }
 impl CoinParams {
     pub fn new(delta: Real, absa: Real, arga: Real, argb: Real) -> CoinParams {

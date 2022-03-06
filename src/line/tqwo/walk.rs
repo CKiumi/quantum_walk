@@ -3,7 +3,6 @@ use crate::foundation::*;
 use crate::line::walk::create_line;
 use crate::line::walk::norm_qs;
 use crate::line::walk::operate_shift;
-// use std::time::Instant;
 
 pub fn run(
     n: usize,
@@ -30,7 +29,7 @@ fn operate_coin_tqwo(
     coin_m: &Coin2,
     coin_o: &Coin2,
     coin_p: &Coin2,
-    states: &Vec<QuantumState2>,
+    states: &[QuantumState2],
 ) -> Vec<QuantumState2> {
     let n = (states.len() - 1) / 2;
     states
