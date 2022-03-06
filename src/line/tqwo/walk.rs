@@ -40,9 +40,9 @@ fn operate_coin_tqwo(
                 *state
             } else {
                 match index {
-                    index if index < n => state.operate_coin(&coin_m),
-                    index if index > n => state.operate_coin(&coin_p),
-                    _ => state.operate_coin(&coin_o),
+                    index if index < n => coin_m * state,
+                    index if index > n => coin_p * state,
+                    _ => coin_o * state,
                 }
             }
         })

@@ -1,7 +1,8 @@
+use std::ops::Mul;
+
 use crate::foundation::number::*;
 use crate::foundation::*;
 use nalgebra::Vector3;
-// use std::time::Instant;
 fn norm_qs3(states: &[QuantumState3]) -> Vec<Real> {
     states
         .iter()

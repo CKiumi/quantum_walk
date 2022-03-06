@@ -1,6 +1,6 @@
 use super::transfer_matrix;
 use crate::foundation::number::*;
-use crate::foundation::quantumstate::*;
+use crate::foundation::*;
 use nalgebra::Matrix2;
 
 fn n_constant(T_o: Matrix2<Complex>, phi: QuantumState2, zeta_p: Complex, zeta_m: Complex) -> f64 {
@@ -50,10 +50,10 @@ pub fn time_averaged_limit(
     let limits: Vec<Vec<Real>> = eigenvectors
         .iter()
         .map(|eigenvector| {
-            let origin_norm = norm2(eigenvector[n as usize].inner(init_state));
+            let origin_norm = norm2(eigenvector[n as usize].dot(&init_state));
             let time_limit: Vec<Real> = eigenvector
                 .iter()
-                .map(|vec| (origin_norm * vec.norm2()))
+                .map(|vec| (origin_norm * vec.norm_squared()))
                 .collect();
             time_limit
         })

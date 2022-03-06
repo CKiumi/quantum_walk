@@ -33,7 +33,7 @@ fn operate_homo_coin(angle: f64, states: &[QuantumState2]) -> Vec<QuantumState2>
                     Complex::new(sin(theta), 0.),
                     Complex::new(-cos(theta), 0.),
                 );
-                state.operate_coin(&coin)
+                coin * state
             }
         })
         .collect()
@@ -84,11 +84,11 @@ fn operate_coin(
                 *state
             } else {
                 match index {
-                    index if index < n && n % 2 == 0 => state.operate_coin(&coin_m1),
-                    index if index < n && n % 2 == 1 => state.operate_coin(&coin_m2),
-                    index if index > n && n % 2 == 1 => state.operate_coin(&coin_p1),
-                    index if index > n && n % 2 == 0 => state.operate_coin(&coin_p2),
-                    _ => state.operate_coin(&coin_o),
+                    index if index < n && n % 2 == 0 => coin_m1 * state,
+                    index if index < n && n % 2 == 1 => coin_m2 * state,
+                    index if index > n && n % 2 == 1 => coin_p1 * state,
+                    index if index > n && n % 2 == 0 => coin_p2 * state,
+                    _ => coin_o * state,
                 }
             }
         })

@@ -1,6 +1,6 @@
 use super::zero;
 use super::{QuantumState2, Real};
-use crate::foundation::{Coin2, QSOperation};
+use crate::foundation::Coin2;
 use nalgebra::Vector2;
 use std::vec::Vec;
 
@@ -53,7 +53,7 @@ fn operate_coin_homogeneous(coin: &Coin2, states: &[QuantumState2]) -> Vec<Quant
             if state[0] == zero && state[1] == zero {
                 *state
             } else {
-                state.operate_coin(&coin)
+                coin * state
             }
         })
         .collect()

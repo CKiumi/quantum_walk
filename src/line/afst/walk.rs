@@ -27,21 +27,21 @@ pub fn afst(n: usize, initial: QuantumState2, param_m: SSQW, param_p: SSQW) -> V
     for i in 0..n {
         for j in 1..space[i].len() {
             if j < n {
-                let coined = space[i][j].operate_coin(&coin_m);
+                let coined = coin_m * space[i][j];
                 space[i + 1][j - 1][0] += qm * coined[1];
                 space[i + 1][j][0] += param_m.p * coined[0];
                 space[i + 1][j][1] += -param_m.p * coined[1];
                 space[i + 1][j + 1][1] += qm.conj() * coined[0];
             }
             if j == n {
-                let coined = space[i][j].operate_coin(&coin_p);
+                let coined = coin_p * space[i][j];
                 space[i + 1][j - 1][0] += qm * coined[1];
                 space[i + 1][j][0] += param_p.p * coined[0];
                 space[i + 1][j][1] += -param_m.p * coined[1];
                 space[i + 1][j + 1][1] += qp.conj() * coined[0];
             }
             if n < j && j < 2 * n {
-                let coined = space[i][j].operate_coin(&coin_p);
+                let coined = coin_p * space[i][j];
                 space[i + 1][j - 1][0] += qp * coined[1];
                 space[i + 1][j][0] += param_p.p * coined[0];
                 space[i + 1][j][1] += -param_p.p * coined[1];
