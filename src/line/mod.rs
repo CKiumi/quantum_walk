@@ -1,10 +1,9 @@
 pub mod walk;
 use super::foundation;
-pub mod plotter;
 use foundation::number::*;
 use foundation::QuantumState2;
 pub mod afst;
 pub mod dqw;
-pub mod stripe;
+pub mod periodic;
 pub mod three_state;
 pub mod tqwo;

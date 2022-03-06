@@ -1,5 +1,3 @@
-use std::ops::Mul;
-
 use crate::foundation::number::*;
 use crate::foundation::*;
 use nalgebra::Vector3;
