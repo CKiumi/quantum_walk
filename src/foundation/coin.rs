@@ -1,6 +1,7 @@
 use super::number::*;
-use nalgebra::Matrix2;
+use nalgebra::{Matrix2, Matrix3};
 pub type Coin2 = Matrix2<Complex>;
+pub type Coin3 = Matrix3<Complex>;
 
 pub struct CoinParams {
     delta: Real,
@@ -33,6 +34,12 @@ impl CoinOperation for Coin2 {
         let b: Complex = absb * exp(I * argb);
         Matrix2::new(a, b, -b.conj(), a.conj()).map(|x| exp(I * delta) * x)
     }
+}
+
+pub fn create_machida_coin(theta: Real, delta: Real) -> Coin3 {
+    let (c, s) = (cos(theta), sin(theta));
+    let (m1, m2, m3) = (-(1. + c) / 2., (1. - c) / 2., s / sqrt(2.));
+    Matrix3::new(m1, m3, m2, m3, c, m3, m2, m3, m1).map(|x| exp(I * delta) * x)
 }
 
 #[test]

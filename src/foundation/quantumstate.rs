@@ -1,6 +1,7 @@
 use super::{coin::Coin2, number::*};
-use nalgebra::Vector2;
+use nalgebra::{Vector2, Vector3};
 pub type QuantumState2 = Vector2<Complex>;
+pub type QuantumState3 = Vector3<Complex>;
 
 pub trait QSOperation {
     fn norm2(&self) -> Real;

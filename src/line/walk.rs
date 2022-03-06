@@ -1,4 +1,5 @@
-use crate::foundation::{Coin2, QSOperation};
+use crate::foundation::number::{exp, sqrt, Complex, I};
+use crate::foundation::{coin, Coin2, QSOperation, QuantumState3};
 
 use super::zero;
 use super::{QuantumState2, Real};
@@ -68,8 +69,8 @@ pub fn create_line(n: usize) -> Vec<Vec<QuantumState2>> {
 pub fn operate_shift(step: usize, states: &Vec<QuantumState2>, original: &mut Vec<QuantumState2>) {
     let len = states.len() as usize;
     let n = (states.len() - 1) / 2;
-    let reminder = n - step;
-    for x in 0 + reminder..len - reminder {
+    let remainder = n - step;
+    for x in 0 + remainder..len - remainder {
         if x != len - 1 {
             original[x][0] = states[x + 1][0];
         }
