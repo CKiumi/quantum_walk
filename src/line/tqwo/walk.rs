@@ -10,8 +10,8 @@ pub fn run(
     coin_p: Coin2,
 ) -> Vec<Vec<Real>> {
     let operator = |x| match x {
-        x if x < steps as i32 => coin_m,
-        x if x > steps as i32 => coin_p,
+        x if x < 0 => coin_m,
+        x if x > 0 => coin_p,
         _ => coin_o,
     };
     walk(steps, &operator, initial)

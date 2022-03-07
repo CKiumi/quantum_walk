@@ -12,10 +12,10 @@ pub fn periodic_walk(
     coin_p2: Coin2,
 ) -> Vec<Vec<Real>> {
     let operator = |x| match x {
-        x if x < steps as i32 && steps % 2 == 0 => coin_m1,
-        x if x < steps as i32 && steps % 2 == 1 => coin_m2,
-        x if x > steps as i32 && steps % 2 == 1 => coin_p1,
-        x if x > steps as i32 && steps % 2 == 0 => coin_p2,
+        x if x < 0 && steps % 2 == 0 => coin_m1,
+        x if x < 0 && steps % 2 == 1 => coin_m2,
+        x if x > 0 && steps % 2 == 1 => coin_p1,
+        x if x > 0 && steps % 2 == 0 => coin_p2,
         _ => coin_o,
     };
     walk(steps, &operator, initial)
