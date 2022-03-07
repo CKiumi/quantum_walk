@@ -1,1 +1,1 @@
-Quantum walk simulator implemented by Rust
+# Quantum walk simulator implemented in Rust
