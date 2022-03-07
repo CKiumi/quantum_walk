@@ -2,10 +2,7 @@ use crate::foundation::number::*;
 use crate::foundation::*;
 use nalgebra::Vector3;
 fn norm_qs3(states: &[QuantumState3]) -> Vec<Real> {
-    states
-        .iter()
-        .map(|x| x[0].norm_sqr() + x[1].norm_sqr() + x[2].norm_sqr())
-        .collect()
+    states.iter().map(|x| x.norm_squared()).collect()
 }
 pub fn run(
     n: usize,

@@ -1,6 +1,6 @@
 use crate::{
     foundation::{number::*, *},
-    line::walk::{create_line, norm_qs},
+    line::walk::create_line,
 };
 
 #[derive(Debug, Clone)]

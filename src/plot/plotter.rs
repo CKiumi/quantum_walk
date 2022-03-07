@@ -28,6 +28,6 @@ pub fn plot_1d(prob: &[f64], dir: &str) -> Result<(), Box<dyn std::error::Error>
 }
 
 #[test]
-fn plot_test() {
+fn unit_test() {
     plot_1d(&[1.322, 1., 1., 1., 1.322], "image/test.png").unwrap();
 }
