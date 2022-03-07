@@ -1,3 +1,4 @@
+#![cfg(not(target_arch = "wasm32"))]
 use plotters::prelude::*;
 pub fn plot_1d(prob: &[f64], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
     let n = ((prob.len() - 1) / 2) as i32;

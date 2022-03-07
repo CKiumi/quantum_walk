@@ -21,6 +21,7 @@ impl Coin for Coin2 {
 
 pub trait State<P> {
     fn from_arr(param: P) -> Self;
+    fn from_param(absa: Real, arga: Real, argb: Real) -> Self;
 }
 
 impl State<[[f64; 2]; 2]> for QuantumState2 {
@@ -28,6 +29,12 @@ impl State<[[f64; 2]; 2]> for QuantumState2 {
         QuantumState2::new(
             Complex::new(param[0][0], param[0][1]),
             Complex::new(param[1][0], param[1][1]),
+        )
+    }
+    fn from_param(absa: Real, arga: Real, argb: Real) -> Self {
+        QuantumState2::new(
+            absa * exp(I * arga),
+            sqrt(1. - absa.powi(2)) * exp(I * argb),
         )
     }
 }
