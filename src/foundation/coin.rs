@@ -39,6 +39,20 @@ impl State<[[f64; 2]; 2]> for QuantumState2 {
     }
 }
 
+pub trait State3 {
+    fn from_arr(param: [[f64; 2]; 3]) -> Self;
+}
+
+impl State3 for QuantumState3 {
+    fn from_arr(param: [[f64; 2]; 3]) -> Self {
+        QuantumState3::new(
+            Complex::new(param[0][0], param[0][1]),
+            Complex::new(param[1][0], param[1][1]),
+            Complex::new(param[2][0], param[2][1]),
+        )
+    }
+}
+
 pub fn create_machida_coin(theta: Real, delta: Real) -> Coin3 {
     let (c, s) = (cos(theta), sin(theta));
     let (m1, m2, m3) = (-(1. + c) / 2., (1. - c) / 2., s / sqrt(2.));

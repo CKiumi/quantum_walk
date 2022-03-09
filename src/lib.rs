@@ -7,13 +7,14 @@ pub mod foundation;
 pub mod line;
 pub use line::tqwo::model1;
 
-use crate::line::tqwo;
+use crate::line::tqwo::{self};
 
 pub mod plot;
 
 #[test]
 fn plot_walks() {
     use foundation::{Coin, QuantumState2, Seed};
+    use line::walk::get_averaged_limit;
     use line::walk::homogeneous;
     let coin = Coin::from_param(0.2, 0.74, 0.213, 0.123);
     let coin_m = Coin::from_param(0.2, 0.5, 0.211, 0.124);
@@ -21,6 +22,7 @@ fn plot_walks() {
     let coin_p = Coin::from_param(0.2, 0.5, 0.211, 0.124);
     let probs = homogeneous(100, QuantumState2::seed(), coin);
     plot::plotter::plot_1d(&probs[probs.len() - 1], "image/test_homo.png").unwrap();
-    let probs = tqwo::walk::run(100, QuantumState2::seed(), coin_m, coin_o, coin_p);
+    let probs = tqwo::walk::run(1000, QuantumState2::seed(), coin_m, coin_o, coin_p);
     plot::plotter::plot_1d(&probs[probs.len() - 1], "image/test_tqwo.png").unwrap();
+    plot::plotter::plot_1d(&get_averaged_limit(probs), "image/test_tqwo_ave.png").unwrap();
 }

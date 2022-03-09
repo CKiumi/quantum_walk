@@ -37,6 +37,18 @@ pub fn create_line(n: usize) -> Vec<Vec<QuantumState2>> {
     vec![vec![QuantumState2::new(zero, zero); 2 * n + 1]; n + 1]
 }
 
+pub fn get_averaged_limit(probs: Vec<Vec<Real>>) -> Vec<Real> {
+    let n = probs.len() - 1;
+    dbg!(n);
+    let mut time_averaged = vec![0.; (2 * n + 1) as usize];
+    for prob in probs {
+        for x in 0..(2 * n + 1) as usize {
+            time_averaged[x] += prob[x] / n as f64;
+        }
+    }
+    time_averaged
+}
+
 #[test]
 fn unit_test() {
     use super::QuantumState2;
