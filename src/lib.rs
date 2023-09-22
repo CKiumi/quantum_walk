@@ -6,13 +6,11 @@
 pub mod foundation;
 pub mod line;
 pub use line::tqwo::model1;
-
-use crate::line::tqwo::{self};
-
 pub mod plot;
 
 #[test]
 fn plot_walks() {
+    use crate::line::tqwo;
     use foundation::{Coin, QuantumState2, Seed};
     use line::walk::get_averaged_limit;
     use line::walk::homogeneous;
