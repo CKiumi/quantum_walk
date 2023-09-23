@@ -2,10 +2,10 @@
 use plotters::prelude::*;
 pub fn plot_1d(prob: &[f64], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
     let n = ((prob.len() - 1) / 2) as i32;
-    let root = BitMapBackend::new(dir, (1080, 720)).into_drawing_area();
+    let root = BitMapBackend::new(dir, (3596, 2360)).into_drawing_area();
     root.fill(&WHITE)?;
     let mut chart = ChartBuilder::on(&root)
-        .margin(15)
+        .margin(170)
         .x_label_area_size(20)
         .y_label_area_size(40)
         .build_cartesian_2d(
@@ -14,15 +14,14 @@ pub fn plot_1d(prob: &[f64], dir: &str) -> Result<(), Box<dyn std::error::Error>
         )?;
     chart
         .configure_mesh()
-        .disable_x_mesh()
-        .disable_y_mesh()
         .x_labels(5)
-        .label_style(TextStyle::from(("sans-serif", 20).into_font()))
+        .y_label_offset(-20)
+        .label_style(TextStyle::from(("sans-serif", 70).into_font()))
         .draw()?;
     chart
         .draw_series(LineSeries::new(
             (0..2 * n + 1).map(|x| ((x - n), prob[x as usize])),
-            &RGBColor(100, 100, 100),
+            RGBColor(102, 170, 187).stroke_width(10),
         ))?
         .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &RED));
     Ok(())

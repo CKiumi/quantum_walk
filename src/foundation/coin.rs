@@ -1,5 +1,6 @@
 use super::number::*;
 use nalgebra::{Matrix2, Matrix3};
+use std::f64::consts::PI;
 pub type Coin2 = Matrix2<Complex>;
 pub type Coin3 = Matrix3<Complex>;
 use nalgebra::{Vector2, Vector3};
@@ -57,6 +58,23 @@ pub fn create_machida_coin(theta: Real, delta: Real) -> Coin3 {
     let (c, s) = (cos(theta), sin(theta));
     let (m1, m2, m3) = (-(1. + c) / 2., (1. - c) / 2., s / sqrt(2.));
     Matrix3::new(m1, m3, m2, m3, c, m3, m2, m3, m1).map(|x| exp(I * delta) * x)
+}
+
+pub fn create_fourier_coin(delta: Real) -> Coin3 {
+    let omega = exp(I * 2. * PI / 3.);
+    let one = Complex::new(1., 0.);
+    Matrix3::new(
+        one,
+        one,
+        one,
+        one,
+        omega,
+        omega.powi(2),
+        one,
+        omega.powi(2),
+        omega,
+    )
+    .map(|x| exp(I * delta) * x / sqrt(3.))
 }
 
 pub fn norm_qs(states: &[QuantumState2]) -> Vec<Real> {
