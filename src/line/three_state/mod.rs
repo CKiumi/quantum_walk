@@ -9,7 +9,7 @@ mod three_test {
     use std::f64::consts::PI;
     #[test]
     fn test_fourier_two_phase() {
-        for i in 0..12 {
+        for i in [1, 3, 7, 11] {
             let coinm = create_fourier_coin(0.);
             let coinp = create_fourier_coin(PI * i as f64 / 12.);
             let init = crate::foundation::QuantumState3::from_arr([
@@ -18,13 +18,13 @@ mod three_test {
                 [1. / (3_f64).sqrt(), 0.],
             ]);
             let probs = super::walk::run(200, init, coinm, coinp.clone(), coinp);
-            let filename = format!("image/three{}.png", i);
-            plot::plotter::plot_1d(&probs[probs.len() - 1], &filename).unwrap();
+            let filename = format!("image/three{}.svg", i);
+            plot::plotter::svg_plot_1d(&probs[probs.len() - 1], &filename).unwrap();
         }
     }
     #[test]
     fn test_fourier_one_defect() {
-        for i in 0..12 {
+        for i in [1, 3, 7, 11] {
             let coin = create_fourier_coin(0.);
             let coin0 = create_fourier_coin(PI * i as f64 / 12.);
             let init = crate::foundation::QuantumState3::from_arr([
@@ -32,9 +32,9 @@ mod three_test {
                 [0., 1. / (3_f64).sqrt()],
                 [1. / (3_f64).sqrt(), 0.],
             ]);
-            let probs = super::walk::run(200, init, coin.clone(), coin0, coin);
-            let filename = format!("image/three{}.png", i);
-            plot::plotter::plot_1d(&probs[probs.len() - 1], &filename).unwrap();
+            let probs = super::walk::run(100, init, coin.clone(), coin0, coin);
+            let filename = format!("image/three{}.svg", i);
+            plot::plotter::svg_plot_1d(&probs[probs.len() - 1], &filename).unwrap();
         }
     }
 }
